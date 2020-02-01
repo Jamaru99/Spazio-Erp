@@ -4,6 +4,7 @@ body{
     background-image: url("assets/Background.jpg");
     color: white;
     text-shadow: 1px 1px #cccc00;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 ul{
