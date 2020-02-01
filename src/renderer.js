@@ -1,26 +1,26 @@
 
 listEl = document.getElementById('list-form');
-btnShowAppointmentModal = document.getElementById('show-appointment-modal');
-appointmentModal = document.getElementById('appointment-modal');
-btnShowAppointmentModal.onclick = () => {
-    appointmentModal.style.display = "block";
-}
-repositories = []
+// btnShowAppointmentModal = document.getElementById('show-appointment-modal');
+// appointmentModal = document.getElementById('appointment-modal');
+// btnShowAppointmentModal.onclick = () => {
+//     appointmentModal.style.display = "block";
+// }
+appointments = []
 
 function renderAppointments(){
     listEl.innerHTML = '<li class="remove"></li>';
-    repositories.forEach(repo => {
+    appointments.forEach(repo => {
         
         let nameEl = document.createElement('strong');
-        nameEl.appendChild(document.createTextNode(repo.schedule));
+        nameEl.appendChild(document.createTextNode(repo.schedule.split("T")[1].replace(".000Z", "")));
 
         let descriptionEl = document.createElement('p');
-        descriptionEl.appendChild(document.createTextNode(repo.customerId));
+        descriptionEl.appendChild(document.createTextNode(repo.customerData.name));
 
         let linkEl = document.createElement('a');
         linkEl.setAttribute('href', repo.html_url);
         linkEl.setAttribute('target', '_blank');
-        linkEl.appendChild(document.createTextNode('Acessar'));
+        linkEl.appendChild(document.createTextNode('Finalizar'));
 
         let listItemEl = document.createElement('li');
         listItemEl.appendChild(nameEl);
@@ -33,7 +33,7 @@ function renderAppointments(){
 
 try{
 
-    getRepos(_ => renderAppointments());
+    getAppointments(_ => renderAppointments());
     
     
 } catch(ex){
