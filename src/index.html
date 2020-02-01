@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <title>Spazio Nina Bernardes</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <div>
+      <h1>Spazio Nina Bernardes</h1>
+      <button id="show-appointment-modal">Agendar</button>
+    </div>
+    <div>
+      <h1>Próximas sessões</h1>
+      <ul id="list-form">
+          <li class="remove"></li>
+      </ul>
+    </div>
+    <div></div>
+    <iframe src="./components/create_appointment.html" id="appointment-modal">
+      <p>Your browser does not support iframes.</p>
+    </iframe>
+    <!-- You can also require other files to run in this process -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./services/appointment.service.js"></script>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

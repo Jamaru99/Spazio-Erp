@@ -1,10 +1,12 @@
 {
-  "name": "electron-quick-start",
+  "name": "spazio-erp",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Spazio software",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -14,9 +16,36 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Matheus Henrique <matheus.euf@gmail.com>",
   "license": "CC0-1.0",
+  "build": {
+    "appId": "yourappid",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  },
   "devDependencies": {
-    "electron": "^7.1.11"
+    "electron": "^7.1.11",
+    "electron-builder": "^22.3.2"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
   }
 }
