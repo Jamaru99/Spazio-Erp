@@ -1,30 +1,43 @@
 
 listEl = document.getElementById('list-form');
-// btnShowAppointmentModal = document.getElementById('show-appointment-modal');
-// appointmentModal = document.getElementById('appointment-modal');
-// btnShowAppointmentModal.onclick = () => {
-//     appointmentModal.style.display = "block";
-// }
 appointments = []
+
+function formatDatetime(datetime){
+    var date = new Date(datetime);
+    let time = datetime.split("T")[1].replace(".000Z", "");
+    if(datetime.split("T")[0] == new Date().toISOString().split("T")[0])
+        return `Hoje - ${time}`
+    let day = date.getDate() >= 10 ? date.getDate() + 1 : `0${date.getDate()}`;;
+    let month = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+    let year = date.getFullYear();
+    return `${day}/${month}/${year} - ${time}`
+}
 
 function renderAppointments(){
     listEl.innerHTML = '<li class="remove"></li>';
     appointments.forEach(repo => {
         
+        let leftDivEl = document.createElement('div');
+
         let nameEl = document.createElement('strong');
-        nameEl.appendChild(document.createTextNode(repo.schedule.split("T")[1].replace(".000Z", "")));
+        nameEl.appendChild(document.createTextNode(formatDatetime(repo.schedule)));
 
-        let descriptionEl = document.createElement('p');
-        descriptionEl.appendChild(document.createTextNode(repo.customerData.name));
+        let customerEl = document.createElement('p');
+        customerEl.appendChild(document.createTextNode(repo.customerData.name));
 
-        let linkEl = document.createElement('a');
-        linkEl.setAttribute('href', repo.html_url);
-        linkEl.setAttribute('target', '_blank');
+        let serviceEl = document.createElement('p');
+        serviceEl.appendChild(document.createTextNode(repo.serviceData.name));
+
+        let linkEl = document.createElement('button');
+        linkEl.setAttribute('id', 'end-session')
         linkEl.appendChild(document.createTextNode('Finalizar'));
 
+        leftDivEl.appendChild(nameEl);
+        leftDivEl.appendChild(customerEl);
+        leftDivEl.appendChild(serviceEl);
+
         let listItemEl = document.createElement('li');
-        listItemEl.appendChild(nameEl);
-        listItemEl.appendChild(descriptionEl);
+        listItemEl.appendChild(leftDivEl);
         listItemEl.appendChild(linkEl);
 
         listEl.appendChild(listItemEl);
@@ -32,10 +45,7 @@ function renderAppointments(){
 }
 
 try{
-
     getAppointments(_ => renderAppointments());
-    
-    
 } catch(ex){
     
     document.querySelector("h1").innerHTML = "Erro";

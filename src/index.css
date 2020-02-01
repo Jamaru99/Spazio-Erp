@@ -11,12 +11,16 @@ ul{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    width: 23vw;
 }
 
 li{
     clear: both;
     padding: 0;
-    margin-top: 20px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 strong{
@@ -25,6 +29,15 @@ strong{
 
 p{
     margin: 5px 0;
+}
+
+button#end-session{
+    background:none;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    text-shadow: 1px 1px #cccc00;
 }
 
 .modal{
