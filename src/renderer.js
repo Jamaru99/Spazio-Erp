@@ -4,10 +4,10 @@ appointments = []
 
 function formatDatetime(datetime){
     var date = new Date(datetime);
-    let time = datetime.split("T")[1].replace(".000Z", "");
+    let time = datetime.split("T")[1].replace(":00.000Z", "");
     if(datetime.split("T")[0] == new Date().toISOString().split("T")[0])
         return `Hoje - ${time}`
-    let day = date.getDate() >= 10 ? date.getDate() + 1 : `0${date.getDate()}`;;
+    let day = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`;;
     let month = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
     let year = date.getFullYear();
     return `${day}/${month}/${year} - ${time}`

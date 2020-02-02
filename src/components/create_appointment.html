@@ -6,22 +6,26 @@
         <div id="left-input-container">
             <label>Cliente: <input type="text" ></label>
             <label>Serviço:   
-                <select id="mySelect" size="1">
-                <option>Corte</option>
-                <option>Unha</option>
-                <option>Corno</option>
-                <option>asdasd</option>
-              </select>
+                <select id="services" size="1"></select>
             </label>
         </div>
         <div id="right-input-container">
             <h2>Escolha um horário</h2>
             <header>
-                <button>l</button>
-                <h2>24/05/2020</h2>
-                <button>l</button>
+                <button id="previous-date" disabled><i class="fas fa-arrow-left"></i></button>
+                <h2 id="date"></h2>
+                <button id="next-date"><i class="fas fa-arrow-right"></i></button>
             </header>
+            <ul>
+                <li>pau</li>
+                <li>pau</li>
+                <li>pau</li>
+                <li>pau</li>
+            </ul>
         </div>
+        <script src="https://kit.fontawesome.com/52be0f12ab.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="../services/service.js"></script>
         <script src="../services/appointment.service.js"></script>
         <script src="./create_appointment.js"></script>
     </body>
