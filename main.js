@@ -38,7 +38,7 @@ function createAddWindow(){
     height:600,
     title:'Agendar sessão'
   });
-  addWindow.setMenu(null);
+  //addWindow.setMenu(null);
   addWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'src/components/create_appointment.html'),
     protocol: 'file:',

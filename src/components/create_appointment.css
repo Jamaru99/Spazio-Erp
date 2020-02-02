@@ -5,7 +5,6 @@ body{
     background-color: #000000EE;
     color: white;
     height: 90vh;
-    text-shadow: 1px 1px #cccc00;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -31,9 +30,7 @@ button{
     background: none;
     border: none;
     color: white;
+    cursor: pointer;
     font-size: 20px;
-}
-
-button:focus{
     outline: 0;
 }

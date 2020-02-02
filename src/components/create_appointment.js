@@ -2,6 +2,13 @@ servicesEl = document.getElementById("services");
 dateEl = document.getElementById("date");
 previousDateBtn = document.getElementById("previous-date");
 nextDateBtn = document.getElementById("next-date");
+schedulesEl = document.getElementById("schedules");
+
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
 
 function getDates(startDate, stopDate) {
     var dateArray = new Array();
@@ -11,6 +18,15 @@ function getDates(startDate, stopDate) {
         currentDate = currentDate.addDays(1);
     }
     return dateArray;
+}
+
+function renderSchedules(schedules){
+    schedulesEl.innerHTML = "";
+    for(sched of schedules){
+        scheduleEl = document.createElement("ul");
+        scheduleEl.appendChild(document.createTextNode(sched));
+        schedulesEl.appendChild(scheduleEl);
+    }
 }
 
 services = [];
@@ -26,6 +42,13 @@ nextDateBtn.onclick = () => {
     }
     dateIndex++;
     dateEl.innerHTML = nextDates[dateIndex];
+    console.log(servicesEl.value);
+    if(servicesEl.value != "") 
+        getSchedules(
+            servicesEl.value, 
+            nextDates[dateIndex], 
+            schedules => renderSchedules(schedules)
+        );
 }
 
 previousDateBtn.onclick = () => {
@@ -36,10 +59,20 @@ previousDateBtn.onclick = () => {
     }
     dateIndex--;
     dateEl.innerHTML = nextDates[dateIndex];
+    if(servicesEl.value != "") 
+        getSchedules(
+            servicesEl.value, 
+            nextDates[dateIndex], 
+            schedules => renderSchedules(schedules)
+        );
 }
 
 servicesEl.onchange = () => {
-    getSchedules("5e2df07656d5b2222fa13bbd", "2020-05-23", res => dateEl.innerHTML = res[0]);
+    getSchedules(
+        servicesEl.value, 
+        nextDates[dateIndex], 
+        schedules => renderSchedules(schedules)
+    );
 }
 
 try{
@@ -52,6 +85,7 @@ try{
             servicesEl.appendChild(serviceOptionEl);
             
         }
+        servicesEl.value = "";
     });
 }
 catch(ex){
