@@ -3,7 +3,7 @@ body{
     justify-content: space-between;
     background-image: url("assets/Background.jpg");
     color: white;
-    text-shadow: 1px 1px #cccc00;
+    /* text-shadow: 1px 1px #aa7700; */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -18,10 +18,12 @@ ul{
 li{
     clear: both;
     padding: 0;
-    margin-top: 15px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     width: 100%;
+    background-color: #00000044;
+    padding: 2px;
 }
 
 strong{
@@ -32,13 +34,21 @@ p{
     margin: 5px 0;
 }
 
+button:focus{
+    outline: 0;
+}
+
 button#end-session{
     background:none;
     font-size: 16px;
     border: none;
-    cursor: pointer;
     color: white;
-    text-shadow: 1px 1px #cccc00;
+    text-shadow: 1px 1px #555500;
+}
+
+button#end-session:hover{
+    cursor: pointer;
+    color: #777;
 }
 
 .modal{

@@ -13,6 +13,10 @@ function formatDatetime(datetime){
     return `${day}/${month}/${year} - ${time}`
 }
 
+function endAppointment(id){
+    updateAppointment(id, "ended", () => renderAppointments());
+}
+
 function renderAppointments(){
     listEl.innerHTML = '<li class="remove"></li>';
     appointments.forEach(repo => {
@@ -29,7 +33,9 @@ function renderAppointments(){
         serviceEl.appendChild(document.createTextNode(repo.serviceData.name));
 
         let linkEl = document.createElement('button');
-        linkEl.setAttribute('id', 'end-session')
+        linkEl.setAttribute('id', 'end-session');
+        //linkEl.setAttribute('onclick', 'endAppointment()`);
+        linkEl.onclick = () => endAppointment(repo._id);
         linkEl.appendChild(document.createTextNode('Finalizar'));
 
         leftDivEl.appendChild(nameEl);

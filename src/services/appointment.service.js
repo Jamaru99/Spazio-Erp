@@ -1,5 +1,7 @@
+const BASE_URL = "https://spazio.mybluemix.net/appointment";
+
 async function getAppointments(callback){
-    const a = await axios.get("https://spazio.mybluemix.net/appointment/list?status=scheduled", {
+    const a = await axios.get(`${BASE_URL}/list?status=scheduled`, {
         headers: {
             access: "aqueleMarioSenpai"
         }
@@ -11,7 +13,13 @@ async function getAppointments(callback){
 }
 
 async function createAppointment(data, callback){
-    const res = await axios.post("https://spazio.mybluemix.net/appointment/create", data);
+    const res = await axios.post(`${BASE_URL}/create`, data);
     callback();
     return res;
+}
+
+async function updateAppointment(id, status, callback){
+    const res = await axios.put(`${BASE_URL}/update/${id}`, {status});
+    getAppointments(callback);
+    return res
 }
