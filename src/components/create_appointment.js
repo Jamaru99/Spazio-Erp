@@ -2,6 +2,8 @@ servicesEl = document.getElementById("services");
 dateEl = document.getElementById("date");
 previousDateBtn = document.getElementById("previous-date");
 nextDateBtn = document.getElementById("next-date");
+registerBtn = document.getElementById("register");
+customerInput = document.getElementById("customer");
 schedulesEl = document.getElementById("schedules");
 
 Date.prototype.addDays = function(days) {
@@ -22,11 +24,16 @@ function getDates(startDate, stopDate) {
 
 function renderSchedules(schedules){
     schedulesEl.innerHTML = "";
-    for(sched of schedules){
-        scheduleEl = document.createElement("ul");
+    schedules.forEach(sched => {
+        scheduleEl = document.createElement("li");
+        scheduleEl.onclick = () => setSchedule(sched);
         scheduleEl.appendChild(document.createTextNode(sched));
         schedulesEl.appendChild(scheduleEl);
-    }
+    });
+}
+
+function setSchedule(schedule){
+    console.log(schedule);
 }
 
 services = [];
@@ -42,7 +49,6 @@ nextDateBtn.onclick = () => {
     }
     dateIndex++;
     dateEl.innerHTML = nextDates[dateIndex];
-    console.log(servicesEl.value);
     if(servicesEl.value != "") 
         getSchedules(
             servicesEl.value, 
@@ -65,6 +71,16 @@ previousDateBtn.onclick = () => {
             nextDates[dateIndex], 
             schedules => renderSchedules(schedules)
         );
+}
+
+registerBtn.onclick = () => {
+    const customerData = {
+        login: "erp",
+        name: customerInput.value
+    }
+    createCustomer(customerData, customer => {
+        console.log(customer);
+    })
 }
 
 servicesEl.onchange = () => {
