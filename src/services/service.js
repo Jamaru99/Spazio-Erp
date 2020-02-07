@@ -6,9 +6,7 @@ async function getServices(callback){
             access: "aqueleMarioSenpai"
         }
     });
-    services = res.data;
-    callback();
-    
+    callback(res.data);
     return res;
 }
 

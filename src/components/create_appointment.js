@@ -37,7 +37,6 @@ function setSchedule(schedule){
     selectedTime = schedule;
 }
 
-services = [];
 selectedDate = new Date();
 selectedTime = "";
 dateEl.innerHTML = formattedDate(selectedDate);
@@ -94,16 +93,18 @@ servicesEl.onchange = () => {
 }
 
 try{
-    getServices(() => {
-        servicesEl.innerHTML = "";
+    getServices(services => {
         for(service of services){
             serviceOptionEl = document.createElement("option");
             serviceOptionEl.setAttribute("value", service._id);
             serviceOptionEl.appendChild(document.createTextNode(service.name));
             servicesEl.appendChild(serviceOptionEl);
-            
         }
-        servicesEl.value = "";
+        getSchedules(
+            servicesEl.value, 
+            formattedDate(selectedDate), 
+            schedules => renderSchedules(schedules)
+        );
     });
 }
 catch(ex){
