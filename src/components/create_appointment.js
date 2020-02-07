@@ -10,16 +10,10 @@ Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
-  }
+}
 
-function getDates(startDate, stopDate) {
-    var dateArray = new Array();
-    var currentDate = startDate;
-    while (currentDate <= stopDate) {
-        dateArray.push(new Date (currentDate).toISOString().split("T")[0]);
-        currentDate = currentDate.addDays(1);
-    }
-    return dateArray;
+function formattedDate(date){
+    return date.toISOString().split("T")[0]
 }
 
 function renderSchedules(schedules){
@@ -33,44 +27,46 @@ function renderSchedules(schedules){
 }
 
 function setSchedule(schedule){
-    console.log(schedule);
+    let scheduleEls = document.querySelectorAll("li");
+    for(schedEl of scheduleEls){
+        if(schedEl.innerHTML === schedule)
+            schedEl.style.backgroundColor = "#88888888";
+        else
+            schedEl.style.backgroundColor = "#88888821";
+    }
+    selectedTime = schedule;
 }
 
 services = [];
-nextDates = getDates(new Date(), new Date().addDays(7));
-dateIndex = 0;
-dateEl.innerHTML = nextDates[dateIndex];
+selectedDate = new Date();
+selectedTime = "";
+dateEl.innerHTML = formattedDate(selectedDate);
 
 nextDateBtn.onclick = () => {
     previousDateBtn.disabled = false;
-    if(dateIndex > 6) {
-        nextDateBtn.disabled = true;
-        return;
-    }
-    dateIndex++;
-    dateEl.innerHTML = nextDates[dateIndex];
-    if(servicesEl.value != "") 
+    selectedDate = selectedDate.addDays(1);
+    dateEl.innerHTML = formattedDate(selectedDate);
+    if(servicesEl.value != "") {
+        schedulesEl.innerHTML = "...";
         getSchedules(
             servicesEl.value, 
-            nextDates[dateIndex], 
+            formattedDate(selectedDate), 
             schedules => renderSchedules(schedules)
         );
+    }
 }
 
 previousDateBtn.onclick = () => {
-    nextDateBtn.disabled = false;
-    if(dateIndex <= 0) {
-        previousDateBtn.disabled = true;
-        return
-    }
-    dateIndex--;
-    dateEl.innerHTML = nextDates[dateIndex];
-    if(servicesEl.value != "") 
+    selectedDate = selectedDate.addDays(-1);
+    dateEl.innerHTML = selectedDate.toISOString().split("T")[0];
+    if(servicesEl.value != "") {
+        schedulesEl.innerHTML = "...";
         getSchedules(
             servicesEl.value, 
-            nextDates[dateIndex], 
+            formattedDate(selectedDate), 
             schedules => renderSchedules(schedules)
         );
+    }
 }
 
 registerBtn.onclick = () => {
@@ -79,14 +75,20 @@ registerBtn.onclick = () => {
         name: customerInput.value
     }
     createCustomer(customerData, customer => {
-        console.log(customer);
+        const appointmentData = {
+            customerId: customer._id,
+            serviceId: servicesEl.value,
+            schedule: `${formattedDate(selectedDate)}T${selectedTime}`
+        };
+        createAppointment(appointmentData, () => console.log("sad"))
     })
 }
 
 servicesEl.onchange = () => {
+    schedulesEl.innerHTML = "...";
     getSchedules(
         servicesEl.value, 
-        nextDates[dateIndex], 
+        formattedDate(selectedDate), 
         schedules => renderSchedules(schedules)
     );
 }

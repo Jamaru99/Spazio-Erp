@@ -26,6 +26,10 @@ div#right-input-container header{
     display: flex;
 }
 
+input#customer{
+    
+}
+
 button{
     background: none;
     border: none;
@@ -33,4 +37,22 @@ button{
     cursor: pointer;
     font-size: 20px;
     outline: 0;
+}
+
+ul{
+    list-style-type: none;
+    width: 80%;
+    padding: 0;
+}
+
+li{
+    background-color: #88888821;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-align: center;
+    height: 20px;
+}
+
+li:hover{
+    background-color: #AAAAAA32;
 }
