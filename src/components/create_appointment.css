@@ -26,8 +26,12 @@ div#right-input-container header{
     display: flex;
 }
 
-input#customer{
-    
+label {
+    margin: 60px 0;
+}
+
+select, input {
+    width: 50%;
 }
 
 button{

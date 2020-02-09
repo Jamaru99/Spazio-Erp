@@ -34,7 +34,6 @@ function renderAppointments(){
 
         let linkEl = document.createElement('button');
         linkEl.setAttribute('id', 'end-session');
-        //linkEl.setAttribute('onclick', 'endAppointment()`);
         linkEl.onclick = () => endAppointment(repo._id);
         linkEl.appendChild(document.createTextNode('Finalizar'));
 
@@ -53,6 +52,5 @@ function renderAppointments(){
 try{
     getAppointments(_ => renderAppointments());
 } catch(ex){
-    
     document.querySelector("h1").innerHTML = "Erro";
 }

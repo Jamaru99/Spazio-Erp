@@ -1,4 +1,5 @@
 servicesEl = document.getElementById("services");
+employeesEl = document.getElementById("employees");
 dateEl = document.getElementById("date");
 previousDateBtn = document.getElementById("previous-date");
 nextDateBtn = document.getElementById("next-date");
@@ -26,6 +27,24 @@ function renderSchedules(schedules){
     });
 }
 
+function populateServices(services){
+    for(service of services){
+        serviceOptionEl = document.createElement("option");
+        serviceOptionEl.setAttribute("value", service._id);
+        serviceOptionEl.appendChild(document.createTextNode(service.name));
+        servicesEl.appendChild(serviceOptionEl);
+    }
+}
+
+function populateEmployees(employees){
+    for(employee of employees){
+        employeeOptionEl = document.createElement("option");
+        employeeOptionEl.setAttribute("value", employee._id);
+        employeeOptionEl.appendChild(document.createTextNode(employee.name));
+        employeesEl.appendChild(employeeOptionEl);
+    }
+}
+
 function setSchedule(schedule){
     let scheduleEls = document.querySelectorAll("li");
     for(schedEl of scheduleEls){
@@ -48,7 +67,8 @@ nextDateBtn.onclick = () => {
     if(servicesEl.value != "") {
         schedulesEl.innerHTML = "...";
         getSchedules(
-            servicesEl.value, 
+            servicesEl.value,
+            employeesEl.value,
             formattedDate(selectedDate), 
             schedules => renderSchedules(schedules)
         );
@@ -61,7 +81,8 @@ previousDateBtn.onclick = () => {
     if(servicesEl.value != "") {
         schedulesEl.innerHTML = "...";
         getSchedules(
-            servicesEl.value, 
+            servicesEl.value,
+            employeesEl.value,
             formattedDate(selectedDate), 
             schedules => renderSchedules(schedules)
         );
@@ -86,7 +107,8 @@ registerBtn.onclick = () => {
 servicesEl.onchange = () => {
     schedulesEl.innerHTML = "...";
     getSchedules(
-        servicesEl.value, 
+        servicesEl.value,
+        employeesEl.value,
         formattedDate(selectedDate), 
         schedules => renderSchedules(schedules)
     );
@@ -94,17 +116,16 @@ servicesEl.onchange = () => {
 
 try{
     getServices(services => {
-        for(service of services){
-            serviceOptionEl = document.createElement("option");
-            serviceOptionEl.setAttribute("value", service._id);
-            serviceOptionEl.appendChild(document.createTextNode(service.name));
-            servicesEl.appendChild(serviceOptionEl);
-        }
-        getSchedules(
-            servicesEl.value, 
-            formattedDate(selectedDate), 
-            schedules => renderSchedules(schedules)
-        );
+        populateServices(services);
+        getEmployees(employees => {
+            populateEmployees(employees);
+            getSchedules(
+                servicesEl.value, 
+                employeesEl.value,
+                formattedDate(selectedDate), 
+                schedules => renderSchedules(schedules)
+            );
+        })
     });
 }
 catch(ex){

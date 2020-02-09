@@ -9,17 +9,3 @@ async function getServices(callback){
     callback(res.data);
     return res;
 }
-
-
-
-// async function createAppointment(data, callback){
-//     const res = await axios.post(`${BASE_URL}/create`, data);
-//     callback();
-//     return res;
-// }
-
-// async function updateAppointment(id, status, callback){
-//     const res = await axios.put(`${BASE_URL}/update/${id}`, {status});
-//     getAppointments(callback);
-//     return res
-// }

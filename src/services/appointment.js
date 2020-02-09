@@ -24,8 +24,8 @@ async function updateAppointment(id, status, callback){
     return res
 }
 
-async function getSchedules(serviceId, date, callback){
-    const res = await axios.get(`${BASE_URL}/list/${serviceId}/${date}`);
+async function getSchedules(serviceId, employeeId, date, callback){
+    const res = await axios.get(`${BASE_URL}/list/${date}?service=${serviceId}&employee=${employeeId}`);
     callback(res.data);
     return res;
 }

@@ -4,11 +4,16 @@
     </head>
     <body>
         <div id="left-input-container">
-            <label>Cliente: <input id="customer" type="text" ></label>
-            <label>Serviço:   
+            <label>Cliente:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="customer" type="text" >
+            </label>
+            <label>Serviço:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <select id="services" size="1"></select>
             </label>
-            <button id = "register">Cadastrar</button>
+            <label>Funcionário(a):
+                <select id="employees" size="1"></select>
+            </label>
+            <button id = "register">Agendar</button>
         </div>
         <div id="right-input-container">
             <h2>Escolha um horário</h2>
@@ -19,8 +24,10 @@
             </header>
             <ul id="schedules"></ul>
         </div>
+
         <script src="https://kit.fontawesome.com/52be0f12ab.js" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="../services/employee.js"></script>
         <script src="../services/service.js"></script>
         <script src="../services/customer.js"></script>
         <script src="../services/appointment.js"></script>
