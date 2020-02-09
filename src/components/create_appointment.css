@@ -60,3 +60,10 @@ li{
 li:hover{
     background-color: #AAAAAA32;
 }
+
+p#message{
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 20;
+}

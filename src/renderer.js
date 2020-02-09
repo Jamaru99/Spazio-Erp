@@ -50,7 +50,8 @@ function renderAppointments(){
 }
 
 try{
-    getAppointments(_ => renderAppointments());
+    getAppointments(_ => renderAppointments())
+    setInterval(() => getAppointments(_ => renderAppointments()), 8000);
 } catch(ex){
     document.querySelector("h1").innerHTML = "Erro";
 }

@@ -6,6 +6,7 @@ nextDateBtn = document.getElementById("next-date");
 registerBtn = document.getElementById("register");
 customerInput = document.getElementById("customer");
 schedulesEl = document.getElementById("schedules");
+messageEl = document.getElementById("message");
 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -98,13 +99,24 @@ registerBtn.onclick = () => {
         const appointmentData = {
             customerId: customer._id,
             serviceId: servicesEl.value,
+            employeeId: employeesEl.value,
             schedule: `${formattedDate(selectedDate)}T${selectedTime}`
         };
-        createAppointment(appointmentData, () => console.log("sad"))
+        createAppointment(appointmentData, () => messageEl.innerHTML = "Sessão agendada!")
     })
 }
 
 servicesEl.onchange = () => {
+    schedulesEl.innerHTML = "...";
+    getSchedules(
+        servicesEl.value,
+        employeesEl.value,
+        formattedDate(selectedDate), 
+        schedules => renderSchedules(schedules)
+    );
+}
+
+employeesEl.onchange = () => {
     schedulesEl.innerHTML = "...";
     getSchedules(
         servicesEl.value,
@@ -131,5 +143,3 @@ try{
 catch(ex){
     services.innerHTML = "<option>Erro</option>";
 }
-
-
