@@ -1,5 +1,6 @@
-
 listEl = document.getElementById('list-form');
+monthlyRevenueEl = document.getElementById('monthly-revenue');
+dailyRevenueEl = document.getElementById('daily-revenue');
 appointments = []
 
 function formatDatetime(datetime){
@@ -11,6 +12,12 @@ function formatDatetime(datetime){
     let month = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
     let year = date.getFullYear();
     return `${day}/${month}/${year} - ${time}`
+}
+
+function renderRevenues(revenues){
+    const {dailyRevenue, monthlyRevenue} = revenues;
+    dailyRevenueEl.innerHTML += dailyRevenue.toFixed(2).replace('.', ',');
+    monthlyRevenueEl.innerHTML += monthlyRevenue.toFixed(2).replace('.', ',');
 }
 
 function endAppointment(id){
@@ -50,8 +57,9 @@ function renderAppointments(){
 }
 
 try{
+    getCurrentRevenue(revenues => renderRevenues(revenues));
     getAppointments(_ => renderAppointments())
-    setInterval(() => getAppointments(_ => renderAppointments()), 8000);
+    setInterval(_ => getAppointments(_ => renderAppointments()), 8000);
 } catch(ex){
     document.querySelector("h1").innerHTML = "Erro";
 }
