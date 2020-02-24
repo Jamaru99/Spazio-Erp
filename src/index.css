@@ -1,11 +1,11 @@
 body{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     background-image: url("assets/Background.jpg");
     color: white;
     height: 90vh;
-    /* text-shadow: 1px 1px #aa7700; */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0 10%;
 }
 
 div#left-container{
@@ -17,7 +17,7 @@ ul{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    width: 23vw;
+    width: 350px;
 }
 
 li{
@@ -26,6 +26,7 @@ li{
     margin-top: 5px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     background-color: #00000044;
     padding: 2px;
@@ -39,21 +40,22 @@ p{
     margin: 5px 0;
 }
 
-button:focus{
-    outline: 0;
-}
-
-button#end-session{
+button{
     background:none;
     font-size: 16px;
     border: none;
     color: white;
-    text-shadow: 1px 1px #555500;
+    font-weight: bold;
+    outline: 0;
 }
 
-button#end-session:hover{
+button:hover{
     cursor: pointer;
-    color: #777;
+    color: #bbb;
+}
+
+button#cancel-session {
+    color: #F00C;
 }
 
 .modal{

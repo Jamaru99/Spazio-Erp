@@ -16,12 +16,17 @@ function formatDatetime(datetime){
 
 function renderRevenues(revenues){
     const {dailyRevenue, monthlyRevenue} = revenues;
-    dailyRevenueEl.innerHTML += dailyRevenue.toFixed(2).replace('.', ',');
-    monthlyRevenueEl.innerHTML += monthlyRevenue.toFixed(2).replace('.', ',');
+    dailyRevenueEl.innerHTML = `Faturamento diário: R$ ${dailyRevenue.toFixed(2).replace('.', ',')}`;
+    monthlyRevenueEl.innerHTML = `Faturamento mensal: R$ ${monthlyRevenue.toFixed(2).replace('.', ',')}`
 }
 
 function endAppointment(id){
     updateAppointment(id, "ended", () => renderAppointments());
+    getCurrentRevenue(revenues => renderRevenues(revenues));
+}
+
+function cancelAppointment(id){
+    updateAppointment(id, "canceled", () => renderAppointments());
 }
 
 function renderAppointments(){
@@ -39,18 +44,28 @@ function renderAppointments(){
         let serviceEl = document.createElement('p');
         serviceEl.appendChild(document.createTextNode(repo.serviceData.name));
 
-        let linkEl = document.createElement('button');
-        linkEl.setAttribute('id', 'end-session');
-        linkEl.onclick = () => endAppointment(repo._id);
-        linkEl.appendChild(document.createTextNode('Finalizar'));
+        let rightDivEl = document.createElement('div');
+
+        let endBtn = document.createElement('button');
+        endBtn.setAttribute('id', 'end-session');
+        endBtn.onclick = () => endAppointment(repo._id);
+        endBtn.appendChild(document.createTextNode('Finalizar'));
+
+        let cancelBtn = document.createElement('button');
+        cancelBtn.setAttribute('id', 'cancel-session');
+        cancelBtn.onclick = () => cancelAppointment(repo._id);
+        cancelBtn.appendChild(document.createTextNode('Cancelar'));
 
         leftDivEl.appendChild(nameEl);
         leftDivEl.appendChild(customerEl);
         leftDivEl.appendChild(serviceEl);
 
+        rightDivEl.appendChild(endBtn);
+        rightDivEl.appendChild(cancelBtn);
+
         let listItemEl = document.createElement('li');
         listItemEl.appendChild(leftDivEl);
-        listItemEl.appendChild(linkEl);
+        listItemEl.appendChild(rightDivEl);
 
         listEl.appendChild(listItemEl);
     });
