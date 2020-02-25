@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="appointment.window.css">
+    </head>
+    <body>
+        <div id="left-input-container">
+            <label>Cliente:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="customer" type="text" >
+            </label>
+            <label>Serviço:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="services" size="1"></select>
+            </label>
+            <label>Funcionário(a):
+                <select id="employees" size="1"></select>
+            </label>
+            <button id="register">AGENDAR</button>
+        </div>
+        
+        <div id="right-input-container">
+            <h2>Escolha um horário</h2>
+            <header>
+                <button id="previous-date" disabled><i class="fas fa-arrow-left"></i></button>
+                <h2 id="date"></h2>
+                <button id="next-date"><i class="fas fa-arrow-right"></i></button>
+            </header>
+            <ul id="schedules"></ul>
+        </div>
+        
+        <p id="message"></p>
+        <script src="https://kit.fontawesome.com/52be0f12ab.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="../../services/employee.js"></script>
+        <script src="../../services/service.js"></script>
+        <script src="../../services/customer.js"></script>
+        <script src="../../services/appointment.js"></script>
+        <script src="./appointment.window.js"></script>
+    </body>
+</html>

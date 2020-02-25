@@ -35,12 +35,31 @@ function createAddWindow(){
   
   addWindow = new BrowserWindow({
     width: 800,
-    height:600,
+    height:800,
     title:'Agendar sessão'
   });
-  //addWindow.setMenu(null);
+  addWindow.setMenu(null);
   addWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'src/components/create_appointment.html'),
+    pathname: path.join(__dirname, 'src/windows/appointment/appointment.window.html'),
+    protocol: 'file:',
+    slashes:true
+  }));
+  // Handle garbage collection
+  addWindow.on('close', function(){
+    addWindow = null;
+  });
+}
+
+function createServiceWindow(){
+  
+  addWindow = new BrowserWindow({
+    width: 800,
+    height:600,
+    title:'Serviços'
+  });
+  addWindow.setMenu(null);
+  addWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'src/windows/service/service.window.html'),
     protocol: 'file:',
     slashes:true
   }));
@@ -65,6 +84,12 @@ const mainMenuTemplate =  [
     label: 'Agendar',
     click(){
       createAddWindow();
+    }
+  },
+  {
+    label: 'Serviços',
+    click(){
+      createServiceWindow();
     }
   }
 ];
