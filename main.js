@@ -57,7 +57,7 @@ function createServiceWindow(){
     height:600,
     title:'Serviços'
   });
-  addWindow.setMenu(null);
+  //addWindow.setMenu(null);
   addWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'src/windows/service/service.window.html'),
     protocol: 'file:',

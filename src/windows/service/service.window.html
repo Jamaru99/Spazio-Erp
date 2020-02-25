@@ -1,36 +1,33 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="create_appointment.css">
+        <link rel="stylesheet" type="text/css" href="service.window.css">
     </head>
     <body>
         <div id="left-input-container">
-            <label>Cliente:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id="customer" type="text" >
+            <h2>Novo serviço</h2>
+            <label>Nome:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="name" type="text" >
             </label>
-            <label>Serviço:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <select id="services" size="1"></select>
+            <label>Descrição:
+                <input id="description" type="text"></input>
             </label>
-            <label>Funcionário(a):
-                <select id="employees" size="1"></select>
+            <label>Preço:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="price" type="money"></input>
             </label>
-            <button id = "register">Agendar</button>
+            <label>Duração:&nbsp;&nbsp;&nbsp;
+                <input id="duration" type="text"></input>
+            </label>
+            <button id = "register">Cadastrar</button>
         </div>
         <div id="right-input-container">
-            <h2>Escolha um horário</h2>
-            <header>
-                <button id="previous-date" disabled><i class="fas fa-arrow-left"></i></button>
-                <h2 id="date"></h2>
-                <button id="next-date"><i class="fas fa-arrow-right"></i></button>
-            </header>
-            <ul id="schedules"></ul>
+            <h2>Serviços cadastrados</h2>
+            <ul id="services">Carregando...</ul>
         </div>
         <p id="message"></p>
         <script src="https://kit.fontawesome.com/52be0f12ab.js" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="../services/employee.js"></script>
-        <script src="../services/service.js"></script>
-        <script src="../services/customer.js"></script>
-        <script src="../services/appointment.js"></script>
-        <script src="./create_appointment.js"></script>
+        <script src="../../services/employee.js"></script>
+        <script src="../../services/service.js"></script>
+        <script src="./service.window.js"></script>
     </body>
 </html>
