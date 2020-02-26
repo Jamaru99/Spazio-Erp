@@ -12,7 +12,12 @@ async function getServices(callback){
 
 async function createService(data, callback){
     const res = await axios.post(`${SERVICE_BASE_URL}/create`, data);
-    console.log("asdsd2");
     callback(res.data);
+    return res;
+}
+
+async function deleteService(id, callback){
+    const res = await axios.delete(`${SERVICE_BASE_URL}/delete/${id}`);
+    callback();
     return res;
 }

@@ -1,4 +1,3 @@
-
 nameEl = document.getElementById("name");
 descriptionEl = document.getElementById("description");
 priceEl = document.getElementById("price");
@@ -15,6 +14,9 @@ function renderServices(services){
         serviceEl = document.createElement("li");
         serviceEl.onclick = () => selectService(service);
         serviceEl.appendChild(document.createTextNode(service.name));
+        //icon = document.createElement("i");
+        //icon.setAttribute("class", "fas fa-edit");
+        //serviceEl.appendChild(icon);
         servicesEl.appendChild(serviceEl);
     });
 }
@@ -86,6 +88,13 @@ registerBtn.onclick = () => {
 }
 
 cancelBtn.onclick = () => {
+    toggleMode("creation");
+}
+
+deleteBtn.onclick = () => {
+    deleteService(selectedService, () => {
+        getServices(services => renderServices(services));
+    });
     toggleMode("creation");
 }
 
