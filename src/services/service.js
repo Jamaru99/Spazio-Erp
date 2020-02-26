@@ -9,3 +9,10 @@ async function getServices(callback){
     callback(res.data);
     return res;
 }
+
+async function createService(data, callback){
+    const res = await axios.post(`${SERVICE_BASE_URL}/create`, data);
+    console.log("asdsd2");
+    callback(res.data);
+    return res;
+}

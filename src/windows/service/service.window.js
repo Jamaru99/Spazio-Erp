@@ -5,6 +5,7 @@ priceEl = document.getElementById("price");
 durationEl = document.getElementById("duration");
 servicesEl = document.getElementById("services");
 registerBtn = document.getElementById("register");
+messageEl = document.getElementById("message");
 
 function renderServices(services){
     servicesEl.innerHTML = "";
@@ -17,7 +18,25 @@ function renderServices(services){
 }
 
 function selectService(service){
+    let serviceEls = document.querySelectorAll("li");
+    for(servEl of serviceEls){
+        if(servEl.innerHTML === service.name)
+            servEl.style.backgroundColor = "#88888888";
+        else
+            servEl.style.backgroundColor = "#88888821";
+    }
+    nameEl.value = service.name;
+    descriptionEl.value = service.description || "";
+    priceEl.value = service.price;
+    durationEl.value = service.duration;
+    selectedService = service._id;
+    toggleMode("edition");
+}
 
+function toggleMode(mode){
+    if(mode === "edition"){
+        registerBtn.innerHTML = "SALVAR";
+    }
 }
 
 function populateEmployees(employees){
@@ -29,26 +48,29 @@ function populateEmployees(employees){
     }
 }
 
+selectedService = null;
+
 registerBtn.onclick = () => {
-    const customerData = {
-        login: "erp",
-        name: customerInput.value
+    try{
+        const serviceData = {
+            name: nameEl.value,
+            duration: parseFloat(durationEl.value),
+            price: parseFloat(priceEl.value),
+            description: descriptionEl.value
+        }
+        createService(serviceData, service => {
+            messageEl.innerHTML = "Serviço cadastrado!";
+            getServices(services => renderServices(services));
+        })
     }
-    createCustomer(customerData, customer => {
-        const appointmentData = {
-            customerId: customer._id,
-            serviceId: servicesEl.value,
-            employeeId: employeesEl.value,
-            schedule: `${formattedDate(selectedDate)}T${selectedTime}`
-        };
-        createAppointment(appointmentData, () => messageEl.innerHTML = "Sessão agendada!")
-    })
+    catch(err){
+        messageEl.innerHTML = "Erro";
+    }
 }
 
 try{
-    
     getServices(services => renderServices(services));
 }
 catch(ex){
-    services.innerHTML = "<option>Erro</option>";
+    messageEl.innerHTML = "Erro";
 }
