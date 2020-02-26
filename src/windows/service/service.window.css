@@ -22,10 +22,10 @@ div#right-input-container{
 }
 
 label {
-    margin: 30px 0;
+    margin: 25px 0;
 }
 
-input {
+input[type="text"] {
     width: 50%;
 }
 
@@ -36,6 +36,11 @@ button{
     cursor: pointer;
     font-size: 20px;
     outline: 0;
+    margin: 10px 0;
+}
+
+button#delete{
+    color: red;
 }
 
 ul{
@@ -63,4 +68,8 @@ p#message{
     left: 50%;
     right: 50%;
     bottom: 20;
+}
+
+.invisible{
+    display: none;
 }

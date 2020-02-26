@@ -5,6 +5,8 @@ priceEl = document.getElementById("price");
 durationEl = document.getElementById("duration");
 servicesEl = document.getElementById("services");
 registerBtn = document.getElementById("register");
+cancelBtn = document.getElementById("cancel");
+deleteBtn = document.getElementById("delete");
 messageEl = document.getElementById("message");
 
 function renderServices(services){
@@ -36,6 +38,21 @@ function selectService(service){
 function toggleMode(mode){
     if(mode === "edition"){
         registerBtn.innerHTML = "SALVAR";
+        cancelBtn.removeAttribute("class");
+        deleteBtn.removeAttribute("class");
+    }
+    if(mode == "creation"){
+        registerBtn.innerHTML = "CADASTRAR";
+        cancelBtn.setAttribute("class", "invisible");
+        deleteBtn.setAttribute("class", "invisible");
+        let serviceEls = document.querySelectorAll("li");
+        for(servEl of serviceEls)
+            servEl.style.backgroundColor = "#88888821";
+        nameEl.value = "";
+        descriptionEl.value = "";
+        durationEl.value = "";
+        priceEl.value = "";
+        selectedService = null;
     }
 }
 
@@ -66,6 +83,10 @@ registerBtn.onclick = () => {
     catch(err){
         messageEl.innerHTML = "Erro";
     }
+}
+
+cancelBtn.onclick = () => {
+    toggleMode("creation");
 }
 
 try{
