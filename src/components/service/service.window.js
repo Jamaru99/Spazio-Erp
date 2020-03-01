@@ -1,8 +1,10 @@
+titleEl = document.getElementById("left-input-title");
 nameEl = document.getElementById("name");
 descriptionEl = document.getElementById("description");
 priceEl = document.getElementById("price");
 durationEl = document.getElementById("duration");
 servicesEl = document.getElementById("services");
+employeesEl = document.getElementById("employees")
 registerBtn = document.getElementById("register");
 cancelBtn = document.getElementById("cancel");
 deleteBtn = document.getElementById("delete");
@@ -14,9 +16,6 @@ function renderServices(services){
         serviceEl = document.createElement("li");
         serviceEl.onclick = () => selectService(service);
         serviceEl.appendChild(document.createTextNode(service.name));
-        //icon = document.createElement("i");
-        //icon.setAttribute("class", "fas fa-edit");
-        //serviceEl.appendChild(icon);
         servicesEl.appendChild(serviceEl);
     });
 }
@@ -37,14 +36,41 @@ function selectService(service){
     toggleMode("edition");
 }
 
+function renderEmployees(employees){
+    for(employee of employees){
+        employeeOptionEl = document.createElement("input");
+        employeeOptionEl.setAttribute("value", employee._id);
+        employeeOptionEl.setAttribute("type", "checkbox");
+        employeeOptionEl.setAttribute("name", employee.name);
+        employeeOptionEl.setAttribute("checked", true);
+
+        employeeLabelEl = document.createElement("label");
+        employeeLabelEl.setAttribute("for", employee.name);
+        employeeLabelEl.appendChild(document.createTextNode(employee.name));
+        employeesEl.appendChild(employeeOptionEl);
+        employeesEl.appendChild(employeeLabelEl);
+    }
+}
+
+function getSelectedEmployees(){
+    var selectedEmployees = [];
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+    for (checkbox of checkboxes) {
+        selectedEmployees.push(checkbox.value);
+    }
+    return selectedEmployees;
+}
+
 function toggleMode(mode){
     if(mode === "edition"){
+        titleEl.innerHTML = "Editar serviço"
         registerBtn.innerHTML = "SALVAR";
         cancelBtn.removeAttribute("class");
         deleteBtn.removeAttribute("class");
-
     }
     if(mode === "creation"){
+        titleEl.innerHTML = "Novo serviço"
         registerBtn.innerHTML = "CADASTRAR";
         cancelBtn.setAttribute("class", "invisible");
         deleteBtn.setAttribute("class", "invisible");
@@ -63,15 +89,6 @@ function cleanForm(){
     priceEl.value = "";
 }
 
-function populateEmployees(employees){
-    for(employee of employees){
-        employeeOptionEl = document.createElement("option");
-        employeeOptionEl.setAttribute("value", employee._id);
-        employeeOptionEl.appendChild(document.createTextNode(employee.name));
-        employeesEl.appendChild(employeeOptionEl);
-    }
-}
-
 function showToast(message){
     messageEl.innerHTML = message;
     setTimeout(_ => messageEl.innerHTML = "", 3000)
@@ -85,7 +102,8 @@ registerBtn.onclick = () => {
             name: nameEl.value,
             duration: parseFloat(durationEl.value),
             price: parseFloat(priceEl.value),
-            description: descriptionEl.value
+            description: descriptionEl.value,
+            employees: getSelectedEmployees()
         }
         if(selectedService) {
             updateService(selectedService, serviceData, () => {
@@ -119,6 +137,7 @@ deleteBtn.onclick = () => {
 
 try{
     getServices(services => renderServices(services));
+    getEmployees(employees => renderEmployees(employees))
 }
 catch(ex){
     messageEl.innerHTML = "Erro";

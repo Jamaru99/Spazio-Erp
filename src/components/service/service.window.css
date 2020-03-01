@@ -29,6 +29,12 @@ input[type="text"] {
     width: 50%;
 }
 
+input[type="checkbox"] {
+    margin: 10px 2px 8px 8px;
+    width: 15px;
+    height: 15px;
+}
+
 button{
     background: none;
     border: none;

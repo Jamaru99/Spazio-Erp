@@ -106,7 +106,7 @@ registerBtn.onclick = () => {
         };
         createAppointment(appointmentData, () => {
             messageEl.innerHTML = "Agendado!"
-            setTimeout(() => messageEl.innerHTML = "", 3500);
+            setTimeout(() => messageEl.innerHTML = "", 3000);
         })
     })
 }
