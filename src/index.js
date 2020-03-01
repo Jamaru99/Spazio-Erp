@@ -8,7 +8,7 @@ function formatDatetime(datetime){
     let time = datetime.split("T")[1].replace(":00.000Z", "");
     if(datetime.split("T")[0] == new Date().toISOString().split("T")[0])
         return `Hoje - ${time}`
-    let day = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`;;
+    let day = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`;
     let month = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
     let year = date.getFullYear();
     return `${day}/${month}/${year} - ${time}`
@@ -74,7 +74,7 @@ function renderAppointments(){
 try{
     getCurrentRevenue(revenues => renderRevenues(revenues));
     getAppointments(_ => renderAppointments())
-    setInterval(_ => getAppointments(_ => renderAppointments()), 8000);
+    setInterval(_ => getAppointments(_ => renderAppointments()), 7000);
 } catch(ex){
     document.querySelector("h1").innerHTML = "Erro";
 }

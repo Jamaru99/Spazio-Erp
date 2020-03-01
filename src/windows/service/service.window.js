@@ -42,20 +42,25 @@ function toggleMode(mode){
         registerBtn.innerHTML = "SALVAR";
         cancelBtn.removeAttribute("class");
         deleteBtn.removeAttribute("class");
+
     }
-    if(mode == "creation"){
+    if(mode === "creation"){
         registerBtn.innerHTML = "CADASTRAR";
         cancelBtn.setAttribute("class", "invisible");
         deleteBtn.setAttribute("class", "invisible");
-        let serviceEls = document.querySelectorAll("li");
-        for(servEl of serviceEls)
-            servEl.style.backgroundColor = "#88888821";
-        nameEl.value = "";
-        descriptionEl.value = "";
-        durationEl.value = "";
-        priceEl.value = "";
+        cleanForm();
         selectedService = null;
     }
+}
+
+function cleanForm(){
+    let serviceEls = document.querySelectorAll("li");
+    for(servEl of serviceEls)
+        servEl.style.backgroundColor = "#88888821";
+    nameEl.value = "";
+    descriptionEl.value = "";
+    durationEl.value = "";
+    priceEl.value = "";
 }
 
 function populateEmployees(employees){
@@ -65,6 +70,11 @@ function populateEmployees(employees){
         employeeOptionEl.appendChild(document.createTextNode(employee.name));
         employeesEl.appendChild(employeeOptionEl);
     }
+}
+
+function showToast(message){
+    messageEl.innerHTML = message;
+    setTimeout(_ => messageEl.innerHTML = "", 3000)
 }
 
 selectedService = null;
@@ -77,10 +87,19 @@ registerBtn.onclick = () => {
             price: parseFloat(priceEl.value),
             description: descriptionEl.value
         }
-        createService(serviceData, service => {
-            messageEl.innerHTML = "Serviço cadastrado!";
-            getServices(services => renderServices(services));
-        })
+        if(selectedService) {
+            updateService(selectedService, serviceData, () => {
+                showToast("Serviço atualizado!")
+                getServices(services => renderServices(services));
+                toggleMode("creation");
+            })
+        } else {
+            createService(serviceData, () => {
+                showToast("Serviço cadastrado!");
+                getServices(services => renderServices(services));
+                cleanForm();
+            })
+        }
     }
     catch(err){
         messageEl.innerHTML = "Erro";
