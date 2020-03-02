@@ -57,7 +57,7 @@ function createServiceWindow(){
     height:600,
     title:'Serviços'
   });
-  //addWindow.setMenu(null);
+  addWindow.setMenu(null);
   addWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'src/windows/service/service.window.html'),
     protocol: 'file:',
@@ -98,19 +98,3 @@ const mainMenuTemplate =  [
 if(process.platform == 'darwin'){
   mainMenuTemplate.unshift({});
 }
-
-mainMenuTemplate.push({
-  label: 'Developer Tools',
-  submenu:[
-    {
-      role: 'reload'
-    },
-    {
-      label: 'Toggle DevTools',
-      accelerator:process.platform == 'darwin' ? 'Command+I' : 'Ctrl+I',
-      click(item, focusedWindow){
-        focusedWindow.toggleDevTools();
-      }
-    }
-  ]
-});

@@ -19,7 +19,7 @@
   "author": "Matheus Henrique <matheus.euf@gmail.com>",
   "license": "CC0-1.0",
   "build": {
-    "appId": "yourappid",
+    "appId": "spazionb",
     "dmg": {
       "contents": [
         {
@@ -35,6 +35,7 @@
       ]
     },
     "linux": {
+      "icon": "icon.png",
       "target": [
         "AppImage",
         "deb"
