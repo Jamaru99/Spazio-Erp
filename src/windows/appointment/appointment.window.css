@@ -71,4 +71,5 @@ p#message{
     right: 55%;
     bottom: 30;
     font-size: 20px;
+    white-space: nowrap;
 }

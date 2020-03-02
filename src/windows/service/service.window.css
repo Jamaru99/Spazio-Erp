@@ -71,9 +71,10 @@ li:hover{
 
 p#message{
     position: absolute;
-    left: 50%;
-    right: 50%;
+    left: 38%;
+    right: 62%;
     bottom: 20;
+    white-space: nowrap;
 }
 
 .invisible{

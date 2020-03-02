@@ -59,6 +59,12 @@ function setSchedule(schedule){
     selectedTime = schedule;
 }
 
+function isValidForm(){
+    return (
+        selectedTime && customerInput.value
+    );
+}
+
 selectedDate = new Date();
 selectedTime = "";
 dateEl.innerHTML = formattedDate(selectedDate);
@@ -93,6 +99,11 @@ previousDateBtn.onclick = () => {
 }
 
 registerBtn.onclick = () => {
+    if(!isValidForm()) {
+        messageEl.innerHTML = "Dados faltando"
+        setTimeout(() => messageEl.innerHTML = "", 2500);
+        return;
+    }
     const customerData = {
         login: "erp",
         name: customerInput.value
@@ -106,7 +117,7 @@ registerBtn.onclick = () => {
         };
         createAppointment(appointmentData, () => {
             messageEl.innerHTML = "Agendado!"
-            setTimeout(() => messageEl.innerHTML = "", 3000);
+            setTimeout(() => document.location.reload(true), 2500);
         })
     })
 }

@@ -33,6 +33,7 @@ function selectService(service){
     priceEl.value = service.price;
     durationEl.value = service.duration;
     selectedService = service._id;
+    checkEmployees(service.employees);
     toggleMode("edition");
 }
 
@@ -43,6 +44,8 @@ function renderEmployees(employees){
         employeeOptionEl.setAttribute("type", "checkbox");
         employeeOptionEl.setAttribute("name", employee.name);
         employeeOptionEl.setAttribute("checked", true);
+        if(employees.length === 1)
+            employeeOptionEl.setAttribute("disabled", true);
 
         employeeLabelEl = document.createElement("label");
         employeeLabelEl.setAttribute("for", employee.name);
@@ -60,6 +63,13 @@ function getSelectedEmployees(){
         selectedEmployees.push(checkbox.value);
     }
     return selectedEmployees;
+}
+
+function checkEmployees(employees){
+    var checkboxes = document.querySelectorAll('input[type=checkbox]');
+    for (checkbox of checkboxes) {
+        checkbox.checked = employees.includes(checkbox.value);
+    }
 }
 
 function toggleMode(mode){
@@ -89,15 +99,26 @@ function cleanForm(){
     priceEl.value = "";
 }
 
+function isValidForm(){
+    return (
+        nameEl.value && durationEl.value && priceEl.value &&
+        !isNaN(parseFloat(priceEl.value)) && !isNaN(parseFloat(durationEl.value))
+    );
+}
+
 function showToast(message){
     messageEl.innerHTML = message;
-    setTimeout(_ => messageEl.innerHTML = "", 3000)
+    setTimeout(_ => messageEl.innerHTML = "", 2500)
 }
 
 selectedService = null;
 
 registerBtn.onclick = () => {
     try{
+        if(!isValidForm()) {
+            showToast("Dados faltando ou inválidos");
+            return;
+        }
         const serviceData = {
             name: nameEl.value,
             duration: parseFloat(durationEl.value),
