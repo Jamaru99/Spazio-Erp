@@ -14,8 +14,14 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-function formattedDate(date){
+function isoDate(date){
     return date.toISOString().split("T")[0]
+}
+
+function brazilDate(date){
+    const noTimeDate = date.toISOString().split("T")[0]
+    const [year, month, day] = noTimeDate.split("-");
+    return `${day}/${month}/${year}`
 }
 
 function renderSchedules(schedules){
@@ -67,18 +73,18 @@ function isValidForm(){
 
 selectedDate = new Date();
 selectedTime = "";
-dateEl.innerHTML = formattedDate(selectedDate);
+dateEl.innerHTML = brazilDate(selectedDate);
 
 nextDateBtn.onclick = () => {
     previousDateBtn.disabled = false;
     selectedDate = selectedDate.addDays(1);
-    dateEl.innerHTML = formattedDate(selectedDate);
+    dateEl.innerHTML = brazilDate(selectedDate);
     if(servicesEl.value != "") {
         schedulesEl.innerHTML = "...";
         getSchedules(
             servicesEl.value,
             employeesEl.value,
-            formattedDate(selectedDate), 
+            isoDate(selectedDate), 
             schedules => renderSchedules(schedules)
         );
     }
@@ -86,13 +92,13 @@ nextDateBtn.onclick = () => {
 
 previousDateBtn.onclick = () => {
     selectedDate = selectedDate.addDays(-1);
-    dateEl.innerHTML = selectedDate.toISOString().split("T")[0];
+    dateEl.innerHTML = brazilDate(selectedDate);
     if(servicesEl.value != "") {
         schedulesEl.innerHTML = "...";
         getSchedules(
             servicesEl.value,
             employeesEl.value,
-            formattedDate(selectedDate), 
+            isoDate(selectedDate), 
             schedules => renderSchedules(schedules)
         );
     }
@@ -113,7 +119,7 @@ registerBtn.onclick = () => {
             customerId: customer._id,
             serviceId: servicesEl.value,
             employeeId: employeesEl.value,
-            schedule: `${formattedDate(selectedDate)}T${selectedTime}`
+            schedule: `${isoDate(selectedDate)}T${selectedTime}`
         };
         createAppointment(appointmentData, () => {
             messageEl.innerHTML = "Agendado!"
@@ -127,7 +133,7 @@ servicesEl.onchange = () => {
     getSchedules(
         servicesEl.value,
         employeesEl.value,
-        formattedDate(selectedDate), 
+        isoDate(selectedDate), 
         schedules => renderSchedules(schedules)
     );
 }
@@ -137,7 +143,7 @@ employeesEl.onchange = () => {
     getSchedules(
         servicesEl.value,
         employeesEl.value,
-        formattedDate(selectedDate), 
+        isoDate(selectedDate), 
         schedules => renderSchedules(schedules)
     );
 }
@@ -150,7 +156,7 @@ try{
             getSchedules(
                 servicesEl.value, 
                 employeesEl.value,
-                formattedDate(selectedDate), 
+                isoDate(selectedDate), 
                 schedules => renderSchedules(schedules)
             );
         })
