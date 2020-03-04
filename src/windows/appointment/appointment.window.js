@@ -15,13 +15,13 @@ Date.prototype.addDays = function(days) {
 }
 
 function isoDate(date){
-    return date.toISOString().split("T")[0]
+    return date.toISOString().split("T")[0];
 }
 
 function brazilDate(date){
-    const noTimeDate = date.toISOString().split("T")[0]
+    const noTimeDate = isoDate(date);
     const [year, month, day] = noTimeDate.split("-");
-    return `${day}/${month}/${year}`
+    return `${day}/${month}/${year}`;
 }
 
 function renderSchedules(schedules){

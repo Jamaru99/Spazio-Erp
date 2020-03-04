@@ -10,6 +10,51 @@ cancelBtn = document.getElementById("cancel");
 deleteBtn = document.getElementById("delete");
 messageEl = document.getElementById("message");
 
+function floatToDatetime(schedule){
+    var decimal = schedule - Math.floor(schedule);
+    var formattedDecimal = "";
+    if(decimal == 0)
+        formattedDecimal = "0";
+    return `${Math.floor(schedule)}:${formattedDecimal}${decimal * 60}`
+}
+
+function timeToFloat(time) {
+
+    var decimal_places = 2;
+    var maximum_hours = 15;
+    var int_format = time.match(/^\d+$/);
+    var time_format = time.match(/([\d]*):([\d]+)/);
+    var minute_string_format = time.toLowerCase().match(/([\d]+)m/);
+    var hour_string_format = time.toLowerCase().match(/([\d]+)h/);
+
+    if (time_format != null) {
+        hours = parseInt(time_format[1]);
+        minutes = parseFloat(time_format[2]/60);
+        time = hours + minutes;
+    } else if (minute_string_format != null || hour_string_format != null) {
+        if (hour_string_format != null) {
+            hours = parseInt(hour_string_format[1]);
+        } else {
+            hours = 0;
+        }
+        if (minute_string_format != null) {
+            minutes = parseFloat(minute_string_format[1]/60);
+        } else {
+            minutes = 0;
+        }
+        time = hours + minutes;
+    } else if (int_format != null) {
+        time = parseInt(time);
+        if (maximum_hours > 0 && time > maximum_hours) {
+            time = (time/60).toFixed(decimal_places);
+        }
+    }
+
+    time = parseFloat(time);
+
+    return time;
+}
+
 function renderServices(services){
     servicesEl.innerHTML = "";
     services.forEach(service => {
@@ -31,7 +76,8 @@ function selectService(service){
     nameEl.value = service.name;
     descriptionEl.value = service.description || "";
     priceEl.value = service.price;
-    durationEl.value = service.duration;
+    priceEl.value = priceEl.value.replace(".", ",");
+    durationEl.value = floatToDatetime(service.duration);
     selectedService = service._id;
     checkEmployees(service.employees);
     toggleMode("edition");
@@ -113,6 +159,8 @@ function showToast(message){
 
 selectedService = null;
 
+
+
 registerBtn.onclick = () => {
     try{
         if(!isValidForm()) {
@@ -121,8 +169,8 @@ registerBtn.onclick = () => {
         }
         const serviceData = {
             name: nameEl.value,
-            duration: parseFloat(durationEl.value),
-            price: parseFloat(priceEl.value),
+            duration: timeToFloat(durationEl.value),
+            price: parseFloat(priceEl.value.replace(",", ".")),
             description: descriptionEl.value,
             employees: getSelectedEmployees()
         }
