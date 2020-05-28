@@ -30,6 +30,15 @@ function renderSchedules(schedules){
     });
 }
 
+function populateCustomers(customers){
+    for(customer of customers){
+        customerOptionEl = document.createElement("option");
+        customerOptionEl.setAttribute("value", customer._id);
+        customerOptionEl.appendChild(document.createTextNode(customer.name));
+        customerInput.appendChild(customerOptionEl);
+    }
+}
+
 function populateServices(services){
     for(service of services){
         serviceOptionEl = document.createElement("option");
@@ -100,25 +109,19 @@ previousDateBtn.onclick = () => {
 
 registerBtn.onclick = () => {
     if(!isValidForm()) {
-        messageEl.innerHTML = "Dados faltando"
+        messageEl.innerHTML = "Dados faltando";
         setTimeout(() => messageEl.innerHTML = "", 2500);
         return;
     }
-    const customerData = {
-        login: "erp",
-        name: customerInput.value
-    }
-    createCustomer(customerData, customer => {
-        const appointmentData = {
-            customerId: customer._id,
-            serviceId: servicesEl.value,
-            employeeId: employeesEl.value,
-            schedule: `${formattedDate(selectedDate)}T${selectedTime}`
-        };
-        createAppointment(appointmentData, () => {
-            messageEl.innerHTML = "Agendado!"
-            setTimeout(() => document.location.reload(true), 2500);
-        })
+    const appointmentData = {
+        customerId: customerInput.value,
+        serviceId: servicesEl.value,
+        employeeId: employeesEl.value,
+        schedule: `${formattedDate(selectedDate)}T${selectedTime}`
+    };
+    createAppointment(appointmentData, () => {
+        messageEl.innerHTML = "Agendado!"
+        setTimeout(() => document.location.reload(true), 2500);
     })
 }
 
@@ -143,6 +146,7 @@ employeesEl.onchange = () => {
 }
 
 try{
+    getCustomers(customers => populateCustomers(customers));
     getServices(services => {
         populateServices(services);
         getEmployees(employees => {
